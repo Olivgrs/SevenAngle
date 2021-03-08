@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 // Charge Route
 app.post('/charge', (req, res) => {
-  const amount = 2500;
+  const amount = 50000;
   
   stripe.customers.create({
     email: req.body.stripeEmail,
@@ -34,8 +34,8 @@ app.post('/charge', (req, res) => {
   })
   .then(customer => stripe.charges.create({
     amount,
-    description: 'Web Development Ebook',
-    currency: 'usd',
+    description: 'SevenAngle',
+    currency: 'eur',
     customer: customer.id
   }))
   .then(charge => res.render('success'));
@@ -46,4 +46,3 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
-

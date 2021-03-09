@@ -3,7 +3,7 @@ const keys = require('./config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-const css = require('./public/css')
+//const css = require('./public/css')
 const app = express();
 
 // Handlebars Middleware
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 // Set Static Folder
 app.use(express.static(`${__dirname}/public`));
 
-app.use(express.static(css.join(__dirname, 'public')));
+//app.use(express.static(css.join(__dirname, 'public')));
 
 // Index Route
 app.get('/', (req, res) => {

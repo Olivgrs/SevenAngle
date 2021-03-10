@@ -3,30 +3,23 @@ const keys = require('./config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-//const css = require('./public/css')
 const app = express();
 
-// Handlebars Middleware
 app.engine('handlebars',exphbs({defaultLayout:'main'}));
 app.set('view engine', 'handlebars');
 
-// Body Parser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
-// Set Static Folder
 app.use(express.static(`${__dirname}/public`));
 
-//app.use(express.static(css.join(__dirname, 'public')));
 
-// Index Route
 app.get('/', (req, res) => {
   res.render('index', {
     stripePublishableKey: keys.stripePublishableKey
   });
 });
 
-// Charge Route
 app.post('/charge', (req, res) => {
   const amount = 50000;
   
@@ -37,7 +30,7 @@ app.post('/charge', (req, res) => {
   .then(customer => stripe.charges.create({
     amount,
     description: 'SevenAngle',
-    currency: 'eur',
+    currency: 'EUR',
     customer: customer.id
   }))
   .then(charge => res.render('success'));
